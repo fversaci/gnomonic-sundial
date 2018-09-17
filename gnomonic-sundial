@@ -27,7 +27,7 @@ echo -e "-90 0\n90 0" | gmt psxy -R -J -Ap -O -K >> $FILE # equator
 echo -e "-90 $TILT\n90 $TILT" | gmt psxy -R -J -Ap -O -K >> $FILE # tropic of cancer 
 echo -e "-90 -$TILT\n90 -$TILT" | gmt psxy -R -J -Ap -O -K >> $FILE #tropic of capricorn
 # analemma on the mid-day meridian
-paste <(awk '{print $1 + 15}' sun-time-shift.txt) sun-declination.txt > $ANALEMMA
+paste <(awk '{print $1 + 15}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
 gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
 # star some random dates
 NUMDAY=`date '+%j' -d "2018-04-25"` # Italian liberation day
