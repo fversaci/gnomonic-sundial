@@ -14,7 +14,7 @@ Apart from `gmt`, you will need the following (standard) Linux tools:
 - sed
 - awk
 
-## Overview
+## Overview of sundials
 
 The literature on sundials is huge (and with some surprises even in
 recent times, see bifilar sundials for example). The basic ideas
@@ -62,7 +62,7 @@ meridian (but we would lose the exact position of the zenith point).
 ### Gnomonic projection
 
 One can construct a sundial using the semi-transparent globe we
-imagined above. This type of sundial is called equatorial, and it is
+outlined above. This type of sundial is called equatorial, and it is
 typically realized with the globe axis casting its shadow on a
 circular stripe (or a disk) representing the equator.
 
@@ -92,10 +92,27 @@ is not vertical and/or not facing south, you just need to compute the
 tangent point of wall plane with the semi-transparent globe to
 generate the correct sundial map.
 
-
 ### Reference meridian
 
-TBD
+Until the 19th century each city used its own local time, i.e., based
+on the solar position: when the sun is exactly at south then it is
+midday. Until transport and communication were slow, this was not a
+problem, but when railways were more and more widespread the time
+difference between cities started posing serious challenges to the
+design and supervision of train schedules. E.g., traveling from Venice
+to Turin required passengers and train personnel to adjust their
+clocks by 18 minutes.
+
+At the end of 19th century the world was divided in 24 time zones,
+each large 15 degrees, to mitigate the effects of the different local
+times and accumulate the differences in multiple of one hour.  E.g.,
+Italy has adopted the time of the 15⁰ meridian, which roughly goes
+through the mount Etna, so that there are no time differences when
+using nation trains.
+
+Adopting the reference time in the gnomonic sundial is quite simple,
+you consider midday when the sun crosses your reference meridian,
+instead of your local one.
 
 ### Mean day and the equation of time
 
