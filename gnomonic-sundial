@@ -22,7 +22,7 @@ gmt psbasemap -P -Rg -JF$LON/$LAT/$RANGE/${SIZE}c -Bg15/ -X1.5c -K > $FILE
 gmt pscoast -R -J -B -Di -Glightgray -N1/0.25p,- -W1/ -O -K >> $FILE 
 # draw reference distance to compute gnomon lengths
 # comment next line if you don't want it on paper
-echo "$LON $LAT\n0 90" | gmt psxy -R -J -A -W0.5,red,- -O -K >> $FILE
+echo -e "$LON $LAT\n0 90" | gmt psxy -R -J -A -W0.5,red,- -O -K >> $FILE
 # equator and tropics (=> equinoxes and solstices)
 echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
 echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of cancer 
