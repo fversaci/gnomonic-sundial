@@ -155,6 +155,12 @@ western branch of the analemma, if its autumn the eastern one.
 
 TBD
 
+## Author
+
+`gnomonic-sundial` is developed by
+  * Francesco Versaci <francesco.versaci@gmail.com>
+
+
 ## License
 
 This is free software: you can redistribute it and/or modify it under
