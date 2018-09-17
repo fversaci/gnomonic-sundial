@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Let d be the distance on the paper between (0, 90) and (LON, LAT)
+# let r = d * tg(LAT) and g = d / cos(LAT)
+# r is the length of a vertical gnomon standing at (LON, LAT)
+# g is the length of a polar gnomon, fixed at (0, 90), i.e., the north pole
+
+TILT=23.437 # earth's tilt angle, constant
+LON=9.133 # longitude of the observer
+LAT=39.248 # latitude of the observer
+MIDDAY=15 # meridian of midday (we'll add an analemma to it)
+FILE=/tmp/gnomonic-sundial.ps # name of the output file
+ANALEMMA=`mktemp` || exit 1 # tmp file with analemma coordinates
+# clear variables
+gmt clear conf; gmt clear history
+# set media size
+gmt set PS_MEDIA A3
+# gnomonic projection
+SIZE=27 # size in cm
+gmt psbasemap -P -Rg -JF$LON/$LAT/65/${SIZE}c -Bg15/ -X1.5c -K > $FILE
+gmt pscoast -R -J -B -Di -Glightgray -N1/0.25p,- -W1/ -O -K >> $FILE 
+# draw reference distance to compute gnomon lengths
+# comment next line if you don't want it on paper
+echo "$LON $LAT\n0 90" | gmt psxy -R -J -A -W0.5,red,- -O -K >> $FILE
+# equator and tropics (=> equinoxes and solstices)
+echo -e "-90 0\n90 0" | gmt psxy -R -J -Ap -O -K >> $FILE # equator
+echo -e "-90 $TILT\n90 $TILT" | gmt psxy -R -J -Ap -O -K >> $FILE # tropic of cancer 
+echo -e "-90 -$TILT\n90 -$TILT" | gmt psxy -R -J -Ap -O -K >> $FILE #tropic of capricorn
+# analemma on the mid-day meridian
+paste <(awk '{print $1 + 15}' sun-time-shift.txt) sun-declination.txt > $ANALEMMA
+gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
+# star some random dates
+NUMDAY=`date '+%j' -d "2018-04-25"` # Italian liberation day
+sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
+NUMDAY=`date '+%j' -d "2018-10-31"` # Halloween
+sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
+# clean conf and tmp
+gmt clear conf; gmt clear history
+rm $ANALEMMA
