@@ -8,6 +8,7 @@
 TILT=23.437 # earth's tilt angle, constant
 LON=9.133 # longitude of the observer
 LAT=39.248 # latitude of the observer
+RANGE=65
 MIDDAY=15 # meridian of midday (we'll add an analemma to it)
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
 ANALEMMA=`mktemp` || exit 1 # tmp file with analemma coordinates
@@ -17,15 +18,15 @@ gmt clear conf; gmt clear history
 gmt set PS_MEDIA A3
 # gnomonic projection
 SIZE=27 # size in cm
-gmt psbasemap -P -Rg -JF$LON/$LAT/65/${SIZE}c -Bg15/ -X1.5c -K > $FILE
+gmt psbasemap -P -Rg -JF$LON/$LAT/$RANGE/${SIZE}c -Bg15/ -X1.5c -K > $FILE
 gmt pscoast -R -J -B -Di -Glightgray -N1/0.25p,- -W1/ -O -K >> $FILE 
 # draw reference distance to compute gnomon lengths
 # comment next line if you don't want it on paper
 echo "$LON $LAT\n0 90" | gmt psxy -R -J -A -W0.5,red,- -O -K >> $FILE
 # equator and tropics (=> equinoxes and solstices)
-echo -e "-90 0\n90 0" | gmt psxy -R -J -Ap -O -K >> $FILE # equator
-echo -e "-90 $TILT\n90 $TILT" | gmt psxy -R -J -Ap -O -K >> $FILE # tropic of cancer 
-echo -e "-90 -$TILT\n90 -$TILT" | gmt psxy -R -J -Ap -O -K >> $FILE #tropic of capricorn
+echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
+echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of cancer 
+echo -e "0 -$TILT\n120 -$TILT\n240 0$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
 # analemma on the mid-day meridian
 paste <(awk '{print $1 + 15}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
 gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
