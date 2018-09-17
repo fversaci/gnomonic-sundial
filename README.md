@@ -132,7 +132,7 @@ Using the equation of time we can plot on our map, for each day, the
 coordinates of the points which will have the sun at the zenith when
 it's noon in our location. Because of the equation of time this curve
 will not be a segment, but a 8 shaped curve, known as lemniscate. This
-curve is earth equivalent of the
+curve is the earth equivalent of the
 [analemma](https://en.wikipedia.org/wiki/Analemma). Note, e.g., that
 in November the difference between mean and real time reaches 16.5
 minutes. Considering again Cagliari as our location, that means that
@@ -150,6 +150,10 @@ winter solstice, crosses the equator (west of midday meridian) on
 spring equinox and so on, changing season each time it touches a
 tropic or the equator. E.g., if its winter we should consider the
 western branch of the analemma, if its autumn the eastern one.
+
+## How to use the sundial
+
+TBD
 
 ## Program description
 
