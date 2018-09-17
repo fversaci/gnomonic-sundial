@@ -25,7 +25,7 @@ create them easily, automatically and complete with a full geographic
 map is recent, thanks to current computers.
 
 We will assume in the rest of this section that our location is in the
-northern emisphere and above the tropic of cancer.
+northern hemisphere and above the tropic of cancer.
 
 A gnomonic sundial is, in its essence, a miniature reproduction of the
 earth, projected onto a surface. Let's take a globe, orient its axis
@@ -34,7 +34,7 @@ with angle equal to the local latitude), and roll the globe so to have
 your location facing upwards, to your zenith. You now have small copy
 of the earth, with the same exact orientation w.r.t. to the sun. If we
 assume the sun to be at infinite distance (since the distance
-sun-earth is much larger than the earh's radius), we can use our globe
+sun-earth is much larger than the earth's radius), we can use our globe
 as an exact reproduction of the earth, to understand our local time.
 
 We say that we are at (local-time) midday when the sun is exactly at
@@ -106,15 +106,52 @@ clocks by 18 minutes.
 At the end of 19th century the world was divided in 24 time zones,
 each large 15 degrees, to mitigate the effects of the different local
 times and accumulate the differences in multiple of one hour.  E.g.,
-Italy has adopted the time of the 15⁰ meridian, which roughly goes
+Italy has adopted the time of the 15⁰ meridian, which goes roughly
 through the mount Etna, so that there are no time differences when
 using nation trains.
 
 Adopting the reference time in the gnomonic sundial is quite simple,
-you consider midday when the sun crosses your reference meridian,
-instead of your local one.
+you just consider it midday when the sun crosses your reference
+meridian, instead of your local one.
 
 ### Mean day and the equation of time
+
+Until now we have considered the days to be 24 hours long, but in
+reality the solar days (i.e., time difference between local middays)
+are quite variable throughout the year, with differences between
+shortest and longest of about half an hour. This is due to both the
+eccentricity of the earth's orbit and to the difference between the
+axes of rotation and revolution (obliquity of the ecliptic).
+
+A mean time of exactly 24 hours has been adopted, to avoid adjusting
+clocks everyday. The difference in time between this mean time and the
+real one is described by the [equation of
+time](https://en.wikipedia.org/wiki/Equation_of_time).
+
+Using the equation of time we can plot on our map, for each day, the
+coordinates of the points which will have the sun at the zenith when
+it's noon in our location. Because of the equation of time this curve
+will not be a segment, but a 8 shaped curve, known as lemniscate. This
+curve is earth equivalent of the
+[analemma](https://en.wikipedia.org/wiki/Analemma). Note, e.g., that
+in November the difference between mean and real time reaches 16.5
+minutes. Considering again Cagliari as our location, that means that
+when the official time is noon, our local time is actually 11:20, off
+by almost 40 minutes (23.5 minutes from the reference meridian + 16.5
+minutes from the equation of time).
+
+To consider also this correction to the local time, we draw the
+analemma corresponding to the midday meridian (but we could also draw
+one for each meridian) and we read the midday when the shadow touches
+the lemniscate. Since the lemniscate has two intersection point with
+almost all parallels, we need to know which one to consider when
+reading. The analemma starts clockwise at the tropic of Capricorn on
+winter solstice, crosses the equator (west of midday meridian) on
+spring equinox and so on, changing season each time it touches a
+tropic or the equator. E.g., if its winter we should consider the
+western branch of the analemma, if its autumn the eastern one.
+
+## Program description
 
 TBD
 
