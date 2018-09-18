@@ -49,7 +49,7 @@ the earth and its spherical surface.
 
 Now imagine to take our globe, make it semi-transparent and invert
 each point on it with its antipode: in our new globe our current
-location will be facing downward, looking at nadir. Lets make the
+location will be facing downward, looking at nadir. Let's make the
 center point of our globe opaque, so that it casts a visible shadow on
 the semi-transparent inverted globe: the point shown now on the
 semi-transparent globe will be the one which originally had the sun at
@@ -81,7 +81,7 @@ surface.
 
 Our program assumes the surface to be horizontal, but if you want to
 build a vertical or oblique sundial, you just need to change the point
-of the globe projection accordingly. Let take as an example Cagliari,
+of the globe projection accordingly. Let's take as an example Cagliari,
 in Italy, which has coordinates LON = 9.133 and LAT = 39.248. In our
 hypothetical, semi-transparent sphere our location will be facing
 down, thus being the intersection point of an horizontal plane tangent
@@ -97,7 +97,7 @@ generate the correct sundial map.
 Until the 19th century each city used its own local time, i.e., based
 on the solar position: when the sun is exactly at south then it is
 midday. Until transport and communication were slow, this was not a
-problem, but when railways were more and more widespread the time
+problem, but when railways became more and more widespread the time
 difference between cities started posing serious challenges to the
 design and supervision of train schedules. E.g., traveling from Venice
 to Turin required passengers and train personnel to adjust their
@@ -108,7 +108,7 @@ each large 15 degrees, to mitigate the effects of the different local
 times and accumulate the differences in multiple of one hour.  E.g.,
 Italy has adopted the time of the 15⁰ meridian, which goes roughly
 through the mount Etna, so that there are no time differences when
-using nation trains.
+using national trains.
 
 Adopting the reference time in the gnomonic sundial is quite simple,
 you just consider it midday when the sun crosses your reference
@@ -116,39 +116,40 @@ meridian, instead of your local one.
 
 ### Mean day and the equation of time
 
-Until now we have considered the days to be 24 hours long, but in
-reality the solar days (i.e., time difference between local middays)
-are quite variable throughout the year, with differences between
-shortest and longest of about half an hour. This is due to both the
+Until now we have considered the days to be 24 hours long, but
+actually solar days (i.e., time difference between local middays) are
+quite variable throughout the year, with a difference between shortest
+and longest one of about half an hour. This is due both to the
 eccentricity of the earth's orbit and to the difference between the
 axes of rotation and revolution (obliquity of the ecliptic).
 
-A mean time of exactly 24 hours has been adopted, to avoid adjusting
-clocks everyday. The difference in time between this mean time and the
-real one is described by the [equation of
+However, a mean time of exactly 24 hours has been adopted, to avoid
+adjusting clocks everyday. The difference in time between this mean
+time and the real one is described by the [equation of
 time](https://en.wikipedia.org/wiki/Equation_of_time).
 
-Using the equation of time we can plot on our map, for each day, the
-coordinates of the points which will have the sun at the zenith when
-it's noon in our location. Because of the equation of time this curve
-will not be a segment, but a 8 shaped curve, known as lemniscate. This
-curve is the earth equivalent of the
+Using the equation of time we can plot on our map, for each day at
+noon, the coordinates of the points which will have the sun at the
+zenith. Because of the equation of time this curve will not be a
+segment, but a 8 shaped curve, known as lemniscate. This curve is the
+earth equivalent of the
 [analemma](https://en.wikipedia.org/wiki/Analemma). Note, e.g., that
-in November the difference between mean and real time reaches 16.5
-minutes. Considering again Cagliari as our location, that means that
-when the official time is noon, our local time is actually 11:20, off
-by almost 40 minutes (23.5 minutes from the reference meridian + 16.5
-minutes from the equation of time).
+in November the difference between mean and real solar time reaches
+16.5 minutes. Considering again Cagliari as our location, that means
+that when the official time is noon, our real, local time is actually
+11:20, off by almost 40 minutes (23.5 minutes from the reference
+meridian + 16.5 minutes from the equation of time).
 
-To consider also this correction to the local time, we draw the
-analemma corresponding to the midday meridian (but we could also draw
-one for each meridian) and we read the midday when the shadow touches
-the lemniscate. Since the lemniscate has two intersection point with
-almost all parallels, we need to know which one to consider when
-reading. The analemma starts clockwise at the tropic of Capricorn on
-winter solstice, crosses the equator (west of midday meridian) on
-spring equinox and so on, changing season each time it touches a
-tropic or the equator. E.g., if its winter we should consider the
+To incorporate also this correction to the local time in our sundial,
+we draw the analemma corresponding to the midday meridian (and we
+could also draw one for each meridian) and we read the midday when the
+shadow touches the lemniscate. Since the lemniscate has two
+intersection point with almost all parallels, we need to know which
+one to consider when reading. The analemma starts clockwise at the
+tropic of Capricorn on winter solstice, crosses the equator (west of
+midday meridian) on spring equinox and so on, changing season each
+time it touches a tropic or the equator. Thus, when, e.g., reading a
+position south of the equator, if it's winter we should consider the
 western branch of the analemma, if its autumn the eastern one.
 
 ## How to use the sundial
