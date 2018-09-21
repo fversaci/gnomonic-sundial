@@ -4,13 +4,15 @@
 # let r = d * tg(LAT) and g = d / cos(LAT)
 # r is the length of a vertical gnomon standing at (LON, LAT)
 # g is the length of a polar gnomon, fixed at (0, 90), i.e., the north pole
+# see README.md for more info
+# released under GNU GPLv3, see COPYING file
 
-TILT=23.437 # earth's tilt angle, constant
 LON=9.133 # longitude of the observer
 LAT=39.248 # latitude of the observer
 RANGE=65
 MIDDAY=15 # meridian of midday (we'll add an analemma to it)
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
+TILT=23.437 # earth's tilt angle, constant
 ANALEMMA=`mktemp` || exit 1 # tmp file with analemma coordinates
 # clear variables
 gmt clear conf; gmt clear history
@@ -28,7 +30,7 @@ echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
 echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of cancer 
 echo -e "0 -$TILT\n120 -$TILT\n240 0$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
 # analemma on the mid-day meridian
-paste <(awk '{print $1 + 15}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
+paste <(awk '{print $1 + $MIDDAY}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
 gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
 # star some random dates
 NUMDAY=`date '+%j' -d "2018-04-25"` # Italian liberation day
