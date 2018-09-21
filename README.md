@@ -80,11 +80,11 @@ of our sundial) and read the zenith location directly on the flat
 surface.
 
 Our program assumes the surface to be horizontal, but if you want to
-build a vertical or oblique sundial, you just need to change the point
+build a vertical or an inclining sundial, you just need to change the point
 of the globe projection accordingly. Let's take as an example Cagliari,
 in Italy, which has coordinates LON = 9.133 and LAT = 39.248. In our
 hypothetical, semi-transparent sphere our location will be facing
-down, thus being the intersection point of an horizontal plane tangent
+down, thus being the intersection point of a horizontal plane tangent
 to the globe. Instead, if we want to project our globe to a vertical
 plane facing south, the tangent point on the globe will have
 coordinates LON = 9.133 and LAT = 39.248 - 90 = -50.752. If your wall
