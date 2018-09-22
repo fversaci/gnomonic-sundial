@@ -37,7 +37,7 @@ echo -e "$LON $LAT\n0 90" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
 # equator and tropics (=> equinoxes and solstices)
 echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
 echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of cancer 
-echo -e "0 -$TILT\n120 -$TILT\n240 0$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
+echo -e "0 -$TILT\n120 -$TILT\n240 -$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
 
 # analemma on the mid-day meridian
 paste <(awk '{print $1 + $MIDDAY}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
