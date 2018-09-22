@@ -92,6 +92,30 @@ is not vertical and/or not facing south, you just need to compute the
 tangent point of wall plane with the semi-transparent globe to
 generate the correct sundial map.
 
+## How to use the sundial
+
+If the inverted globe is projected onto a horizontal surface, then
+north and south are inverted in the map, hence the line from the north
+pole the chosen location should point to (the local) north.
+
+Once we have the map set up, we just need the gnomon, i.e., a point
+(nodus) or a rod (style), to represent the center of the globe and/or
+its axis. Since the projection is tangent to our location on the map,
+the easiest way to add the nodus is just by putting it on top of a
+vertical style, standing at our location in the map, of length r. Let
+d be the distance in the map between the north pole and our location,
+then by simple trigonometry we have r = d * tg(LAT), where LAT is our
+location's latitude (see Fig. 1).
+
+By using a vertical gnomon pointed on our location we must read the
+time using only the tip of the shadow.  We can the whole shadow more
+informative, by making the gnomon polar, i.e., parallel to the globe's
+axis (i.e., starting at the north pole and pointing to Polaris, i.e.,
+north, and up of an angle equal to LAT). Some simple computations show
+that the length g of the polar gnomon, reaching the center of the
+globe, is g = d / cos(LAT) (see Fig. 1).
+
+
 ### Reference meridian
 
 Until the 19th century each city used its own local time, i.e., based
@@ -152,7 +176,7 @@ time it touches a tropic or the equator. Thus, when, e.g., reading a
 position south of the equator, if it's winter we should consider the
 western branch of the analemma, if its autumn the eastern one.
 
-## How to use the sundial
+## Italic and Babylonian hours
 
 TBD
 

@@ -1,0 +1,29 @@
+/* some more trigonometric functions for bc -l */
+pi = 4 * a(1)
+define torad(x) {
+  return x * pi / 180
+}
+define todeg(x) {
+  return x * 180 / pi
+}
+define tg(x) {
+  return s(x)/c(x)
+}
+define tan(x) {
+  auto y 
+  y = torad(x)
+  return tg(y)
+}
+define acos(x) {
+  auto y, p
+  y = sqrt(1-x^2)/x
+  p = a(y)
+  if (p>0) {return p} else {return p + pi}
+}
+define sunset(l,d) {
+  auto tl, td, rad
+  tl = tan(l)
+  td = tan(d)
+  rad = acos(-tl*td)
+  return todeg(rad)
+}

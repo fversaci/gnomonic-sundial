@@ -9,34 +9,63 @@
 
 LON=9.133 # longitude of the observer
 LAT=39.248 # latitude of the observer
-RANGE=65
+LAT_VER=`echo $LAT - 90 | bc` # latitude for vertical sundial, facing south
+RANGE=70
 MIDDAY=15 # meridian of midday (we'll add an analemma to it)
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
+
 TILT=23.437 # earth's tilt angle, constant
 ANALEMMA=`mktemp` || exit 1 # tmp file with analemma coordinates
+ITALIC=`mktemp` || exit 1 # tmp file with italic and babylonian lines
+
 # clear variables
 gmt clear conf; gmt clear history
+
 # set media size
 gmt set PS_MEDIA A3
+
 # gnomonic projection
 SIZE=27 # size in cm
+# use LAT_VER in next line if you want a vertical sundial, facing south
 gmt psbasemap -P -Rg -JF$LON/$LAT/$RANGE/${SIZE}c -Bg15/ -X1.5c -K > $FILE
 gmt pscoast -R -J -B -Di -Glightgray -N1/0.25p,- -W1/ -O -K >> $FILE 
+
 # draw reference distance to compute gnomon lengths
 # comment next line if you don't want it on paper
-echo -e "$LON $LAT\n0 90" | gmt psxy -R -J -A -W0.5,red,- -O -K >> $FILE
+echo -e "$LON $LAT\n0 90" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
+
 # equator and tropics (=> equinoxes and solstices)
 echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
 echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of cancer 
 echo -e "0 -$TILT\n120 -$TILT\n240 0$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
+
 # analemma on the mid-day meridian
 paste <(awk '{print $1 + $MIDDAY}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
 gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
+
+# italic hours
+DA=`echo "sunset($LAT, $TILT)" | bc -l data/functions.bc`
+DB=`echo "sunset($LAT, -$TILT)" | bc -l data/functions.bc`
+for d in `seq 0 15 90`; do
+    echo $d | awk -v LON=$LON -v DA=$DA -v DB=$DB -v TILT=$TILT '{print $1 + LON - DA " " TILT}{print $1 + LON - DB " " TILT*(-1)}' > $ITALIC
+    head -2 $ITALIC | gmt psxy -R -J -W0.5,green,. -O -K >> $FILE
+done
+
+# babylonian hours
+DA=`echo "sunset($LAT, $TILT)" | bc -l data/functions.bc`
+DB=`echo "sunset($LAT, -$TILT)" | bc -l data/functions.bc`
+for d in `seq 0 -15 -90`; do
+    echo $d | awk -v LON=$LON -v DA=$DA -v DB=$DB -v TILT=$TILT '{print $1 + LON + DA " " TILT}{print $1 + LON + DB " " TILT*(-1)}' > $ITALIC
+    head -2 $ITALIC | gmt psxy -R -J -W0.5,blue,. -O -K >> $FILE
+done
+
 # star some random dates
 NUMDAY=`date '+%j' -d "2018-04-25"` # Italian liberation day
 sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
 NUMDAY=`date '+%j' -d "2018-10-31"` # Halloween
 sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
+
 # clean conf and tmp
 gmt clear conf; gmt clear history
 rm $ANALEMMA
+rm $ITALIC
