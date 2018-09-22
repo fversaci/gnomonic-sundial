@@ -13,6 +13,7 @@ Apart from `gmt`, you will need the following (standard) Linux tools:
 - date
 - sed
 - awk
+- bc
 
 ## Overview of sundials
 
