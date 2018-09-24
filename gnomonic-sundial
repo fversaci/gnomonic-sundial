@@ -40,7 +40,7 @@ echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE #
 echo -e "0 -$TILT\n120 -$TILT\n240 -$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
 
 # analemma on the mid-day meridian
-paste <(awk '{print $1 + $MIDDAY}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
+paste <(awk -v m=$MIDDAY '{print $1 + m}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
 gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
 
 # italic hours
