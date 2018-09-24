@@ -48,7 +48,7 @@ DA=`echo "sunset($LAT, $TILT)" | bc -l data/functions.bc`
 DB=`echo "sunset($LAT, -$TILT)" | bc -l data/functions.bc`
 for d in `seq 0 15 90`; do
     echo $d | awk -v LON=$LON -v DA=$DA -v DB=$DB -v TILT=$TILT '{print $1 + LON - DA " " TILT}{print $1 + LON - DB " " TILT*(-1)}' > $ITALIC
-    head -2 $ITALIC | gmt psxy -R -J -W0.5,green,. -O -K >> $FILE
+    head -2 $ITALIC | gmt psxy -R -J -W0.5,green,- -O -K >> $FILE
 done
 
 # babylonian hours
@@ -56,7 +56,7 @@ DA=`echo "sunset($LAT, $TILT)" | bc -l data/functions.bc`
 DB=`echo "sunset($LAT, -$TILT)" | bc -l data/functions.bc`
 for d in `seq 0 -15 -90`; do
     echo $d | awk -v LON=$LON -v DA=$DA -v DB=$DB -v TILT=$TILT '{print $1 + LON + DA " " TILT}{print $1 + LON + DB " " TILT*(-1)}' > $ITALIC
-    head -2 $ITALIC | gmt psxy -R -J -W0.5,blue,. -O -K >> $FILE
+    head -2 $ITALIC | gmt psxy -R -J -W0.5,blue,- -O -K >> $FILE
 done
 
 # star some random dates
