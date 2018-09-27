@@ -14,7 +14,7 @@ MIDDAY=15 # meridian of midday (we'll add an analemma to it)
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
 
 # Vertical sundial
-WALL_DECL=0 # wall declination: e.g., 0=south, 90=west, -90=east, -45=south-east, etc.
+WALL_DECL=0 # wall declination: e.g., 0=south, 90=east, -90=west, -45=south-west, etc.
 LONV=`echo "vert_lon($WALL_DECL, $LON, $LAT)" | bc -l data/functions.bc`
 LATV=`echo "vert_lat($WALL_DECL, $LAT)" | bc -l data/functions.bc`
 POL_ANG=`echo "pol_ang($WALL_DECL, $LAT)" | bc -l data/functions.bc`
