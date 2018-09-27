@@ -9,21 +9,70 @@ define todeg(x) {
 define tg(x) {
   return s(x)/c(x)
 }
+define sin(x) {
+  auto y 
+  y = torad(x)
+  return s(y)
+}
+define cos(x) {
+  auto y 
+  y = torad(x)
+  return c(y)
+}
 define tan(x) {
   auto y 
   y = torad(x)
   return tg(y)
 }
-define acos(x) {
+define atan(x) {
+  auto y
+  y = a(x)
+  return todeg(y)
+}
+define atan2(y, x) {
+  auto r
+  r = atan(y/x)
+  if (x>0) return r
+  if (r>0) return r - 180
+  return r + 180
+}
+define ac(x) {
   auto y, p
+  if (x==0) return pi/2
   y = sqrt(1-x^2)/x
   p = a(y)
-  if (p>0) {return p} else {return p + pi}
+  if (x>=0) {return p}
+  return p + pi
+}
+define acos(x) {
+  auto y
+  y = ac(x)
+  return todeg(y)
+}
+define asin(x) {
+  auto y
+  y = acos(x)
+  return 90 - y
 }
 define sunset(l,d) {
-  auto tl, td, rad
+  auto tl, td
   tl = tan(l)
   td = tan(d)
-  rad = acos(-tl*td)
-  return todeg(rad)
+  return acos(-tl*td)
+}
+define vert_lat(a, lat) {
+  auto z, t
+  t = 90 - lat
+  z = -sin(t)*cos(a)
+  return (90 - acos(z))
+}
+define vert_lon(a, lon, lat) {
+  auto x, y, t
+  t = 90 - lat
+  x = cos(t)*cos(lon)*cos(a) - sin(lon)*sin(a)
+  y = cos(t)*sin(lon)*cos(a) + cos(lon)*sin(a)
+  return atan2(y,x)
+}
+define pol_ang(wall, lat) {
+  return atan(-sin(wall)/tan(lat))
 }
