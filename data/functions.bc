@@ -76,3 +76,7 @@ define vert_lon(a, lon, lat) {
 define pol_ang(wall, lat) {
   return atan(-sin(wall)/tan(lat))
 }
+define pole(lat) {
+  if (lat>0) return 90
+  return -90
+}

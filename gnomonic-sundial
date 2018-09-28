@@ -76,7 +76,8 @@ echo -e "$LON $LAT" | gmt psxy -R -J -Sx.2 -Wred -O -K >> $FILE
 
 # draw reference distance to compute gnomon lengths
 # comment next line if you don't want it on paper
-echo -e "$CLON $CLAT\n0 90" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
+POLE=`echo "pole($CLAT)" | bc -l data/functions.bc`
+echo -e "$CLON $CLAT\n0 $POLE" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
 
 
 # clean conf and tmp
