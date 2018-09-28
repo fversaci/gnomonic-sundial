@@ -3,7 +3,7 @@
 # Let d be the distance on the paper between (0, 90) and (LON, LAT)
 # let r = d * tg(LAT) and g = d / cos(LAT)
 # r is the length of a vertical gnomon standing at (LON, LAT)
-# g is the length of a polar gnomon, fixed at (0, 90), i.e., the north pole
+# g is the length of a polar gnomon, fixed at (0, 90) or (0, -90)
 # see README.md for more info
 # released under GNU GPLv3, see COPYING file
 
@@ -14,7 +14,7 @@ MIDDAY=15 # meridian of midday (we'll add an analemma to it)
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
 
 # Vertical sundial
-WALL_DECL=0 # wall declination: e.g., 0=south, 90=east, -90=west, -45=south-west, etc.
+WALL_DECL=0 # wall direction: e.g., 0=south, 90=east, -90=west, -45=south-west, etc.
 LONV=`echo "vert_lon($WALL_DECL, $LON, $LAT)" | bc -l data/functions.bc`
 LATV=`echo "vert_lat($WALL_DECL, $LAT)" | bc -l data/functions.bc`
 POL_ANG=`echo "pol_ang($WALL_DECL, $LAT)" | bc -l data/functions.bc`
@@ -36,13 +36,7 @@ gmt set PS_MEDIA A3
 # gnomonic projection
 SIZE=27 # size in cm
 gmt psbasemap -P -Rg -JF$CLON/$CLAT/$RANGE/${SIZE}c -p$POL_ANG+w$CLON/$CLAT -Bg15/ -X1.5c -K > $FILE
-echo -e "$CLON $CLAT" | gmt psxy -R -J -Sc.2 -Gred -O -K >> $FILE
-echo -e "$LON $LAT" | gmt psxy -R -J -Sc.2 -Gred -O -K >> $FILE
 gmt pscoast -R -J -B -Di -Glightgray -N1/0.25p,- -W1/ -O -K >> $FILE 
-
-# draw reference distance to compute gnomon lengths
-# comment next line if you don't want it on paper
-echo -e "$LON $LAT\n0 90" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
 
 # equator and tropics (=> equinoxes and solstices)
 echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
@@ -74,6 +68,16 @@ NUMDAY=`date '+%j' -d "2018-04-25"` # Italian liberation day
 sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
 NUMDAY=`date '+%j' -d "2018-10-31"` # Halloween
 sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
+
+# mark center and location
+echo "$CLON $CLAT"
+echo -e "$CLON $CLAT" | gmt psxy -R -J -S+.2 -Wred  -O -K >> $FILE
+echo -e "$LON $LAT" | gmt psxy -R -J -Sx.2 -Wred -O -K >> $FILE
+
+# draw reference distance to compute gnomon lengths
+# comment next line if you don't want it on paper
+echo -e "$CLON $CLAT\n0 90" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
+
 
 # clean conf and tmp
 gmt clear conf; gmt clear history
