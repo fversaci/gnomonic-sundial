@@ -10,7 +10,7 @@
 LON=9.133 # longitude of the observer
 LAT=39.248 # latitude of the observer
 RANGE=70
-MIDDAY=15 # meridian of midday (we'll add an analemma to it)
+LEMN_MERID=15 # meridian with analemma
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
 
 # Vertical sundial
@@ -43,8 +43,8 @@ echo -e "0 0\n120 0\n240 0" | gmt psxy -R -J -Ap -L -O -K >> $FILE # equator
 echo -e "0 $TILT\n120 $TILT\n240 $TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of cancer 
 echo -e "0 -$TILT\n120 -$TILT\n240 -$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FILE # tropic of capricorn
 
-# analemma on the mid-day meridian
-paste <(awk -v m=$MIDDAY '{print $1 + m}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
+# analemma on the chosen meridian
+paste <(awk -v m=$LEMN_MERID '{print $1 + m}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
 gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
 
 # italic hours
