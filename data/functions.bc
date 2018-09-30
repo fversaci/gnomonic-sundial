@@ -31,7 +31,7 @@ define atan(x) {
 }
 define atan2(y, x) {
   auto r
-  r = atan(y/x)
+  if (x!=0) r = atan(y/x) else r = 90
   if (x>0) return r
   if (r>0) return r - 180
   return r + 180
@@ -74,6 +74,7 @@ define vert_lon(a, lon, lat) {
   return atan2(y,x)
 }
 define pol_ang(wall, lat) {
+  if (lat==0) return 0
   return atan(-sin(wall)/tan(lat))
 }
 define pole(lat) {
