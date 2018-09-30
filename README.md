@@ -106,7 +106,10 @@ the easiest way to add the nodus is just by putting it on top of a
 vertical style, standing at our location in the map, of length r. Let
 d be the distance in the map between the north pole and our location,
 then by simple trigonometry we have r = d * tg(LAT), where LAT is our
-location's latitude (see Fig. 1).
+location's latitude (see Fig. 1). Alternatively, one might measure
+directly r as the distance between the center of the projection and
+some point which is 45 degree from it (e.g., from (LON, LAT) and (LON,
+LAT±45)).
 
 By using a vertical gnomon pointed on our location we must read the
 time using only the tip of the shadow.  We can the whole shadow more
