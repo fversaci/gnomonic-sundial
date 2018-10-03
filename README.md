@@ -106,10 +106,10 @@ the easiest way to add the nodus is just by putting it on top of a
 vertical style, standing at our location in the map, of length r. Let
 d be the distance in the map between the north pole and our location,
 then by simple trigonometry we have r = d * tg(LAT), where LAT is our
-location's latitude (see Fig. 1). Alternatively, one might measure
+location's latitude. Alternatively, one might measure
 directly r as the distance between the center of the projection and
 some point which is 45 degree from it (e.g., from (LON, LAT) and (LON,
-LAT±45)).
+LAT±45), as it's drawn by default by our program).
 
 By using a vertical gnomon pointed on our location we must read the
 time using only the tip of the shadow.  We can the whole shadow more
@@ -117,7 +117,7 @@ informative, by making the gnomon polar, i.e., parallel to the globe's
 axis (i.e., starting at the north pole and pointing to Polaris, i.e.,
 north, and up of an angle equal to LAT). Some simple computations show
 that the length g of the polar gnomon, reaching the center of the
-globe, is g = d / cos(LAT) (see Fig. 1).
+globe, is g = d / cos(LAT) = r / sin(LAT).
 
 
 ### Reference meridian
@@ -181,6 +181,10 @@ position south of the equator, if it's winter we should consider the
 western branch of the analemma, if its autumn the eastern one.
 
 ## Italic and Babylonian hours
+
+TBD
+
+## Declining/inclining walls
 
 TBD
 

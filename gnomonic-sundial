@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Let d be the distance on the paper between (0, 90) and (LON, LAT)
-# let r = d * tg(LAT) and g = d / cos(LAT)
-# r is the length of a vertical gnomon standing at (LON, LAT)
+# Let r be the distance on the paper between (CLON, CLAT) and (CLON, LAT+45)
+# (drawn as a dashed, red line)
+# let g = r / sin(CLAT)
+# r is the length of a vertical gnomon standing at (CLON, CLAT)
 # g is the length of a polar gnomon, fixed at (0, 90) or (0, -90)
 # see README.md for more info
 # released under GNU GPLv3, see COPYING file
@@ -13,17 +14,14 @@ RANGE=70
 LEMN_MERID=15 # meridian with analemma
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
 
-# Vertical sundial
-WALL_DECL=0 # wall direction: e.g., 0=south, 90=east, -90=west, -45=south-west, etc.
-LONV=`echo "vert_lon($WALL_DECL, $LON, $LAT)" | bc -l data/functions.bc`
-LATV=`echo "vert_lat($WALL_DECL, $LAT)" | bc -l data/functions.bc`
-POL_ANG=`echo "pol_ang($WALL_DECL, $LAT)" | bc -l data/functions.bc`
-
-# Use LONV and LATV if you want a vertical sundial
-CLON=$LON
-CLAT=$LAT
-
 TILT=23.437 # earth's tilt angle, constant
+WALL_INCL=60 # wall inclination: e.g., 0=horizontal, 45=oblique facing up, 90=vertical
+WALL_DECL=-30 # wall declination: e.g., 0=south, 90=east, -90=west, -45=south-west, etc.
+CLON=`echo "rot_lon($WALL_DECL, $WALL_INCL, $LON, $LAT)" | bc -l data/functions.bc`
+CLAT=`echo "rot_lat($WALL_DECL, $WALL_INCL, $LAT)" | bc -l data/functions.bc`
+POL_ANG=`echo "pol_ang($WALL_DECL, $WALL_INCL, $LAT)" | bc -l data/functions.bc`
+echo "pol_ang($WALL_DECL, $WALL_INCL, $LAT) = $POL_ANG"
+
 ANALEMMA=`mktemp` || exit 1 # tmp file with analemma coordinates
 ITALIC=`mktemp` || exit 1 # tmp file with italic and babylonian lines
 
@@ -45,7 +43,7 @@ echo -e "0 -$TILT\n120 -$TILT\n240 -$TILT" | gmt psxy -R -J -Ap -L -O -K >> $FIL
 
 # analemma on the chosen meridian
 paste <(awk -v m=$LEMN_MERID '{print $1 + m}' data/sun-time-shift.txt) data/sun-declination.txt > $ANALEMMA
-gmt psxy $ANALEMMA -R -L -J -O -K -W,red >> $FILE
+gmt psxy $ANALEMMA -R -L -J -O -K -W1,red >> $FILE
 
 # italic hours
 DA=`echo "sunset($LAT, $TILT)" | bc -l data/functions.bc`
@@ -69,16 +67,12 @@ sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
 NUMDAY=`date '+%j' -d "2018-10-31"` # Halloween
 sed -n "${NUMDAY}p" $ANALEMMA | gmt psxy -R -J -Sa.2 -Gred -O -K >> $FILE
 
-# mark center and location
-echo "$CLON $CLAT"
-echo -e "$CLON $CLAT" | gmt psxy -R -J -S+.2 -Wred  -O -K >> $FILE
+# mark center, location and radius length
+RADIUS=`echo "radius_lat($CLAT)" | bc -l data/functions.bc`
+echo -e "$CLON $CLAT" | gmt psxy -R -J -Sx.2 -Wred  -O -K >> $FILE
 echo -e "$LON $LAT" | gmt psxy -R -J -Sx.2 -Wred -O -K >> $FILE
-
-# draw reference distance to compute gnomon lengths
-# comment next line if you don't want it on paper
-POLE=`echo "pole($CLAT)" | bc -l data/functions.bc`
-echo -e "$CLON $CLAT\n0 $POLE" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
-
+echo -e "$CLON $RADIUS" | gmt psxy -R -J -S+.2 -Wred  -O -K >> $FILE
+echo -e "$CLON $CLAT\n$CLON $RADIUS" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
 
 # clean conf and tmp
 gmt clear conf; gmt clear history

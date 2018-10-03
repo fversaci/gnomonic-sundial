@@ -60,24 +60,28 @@ define sunset(l,d) {
   td = tan(d)
   return acos(-tl*td)
 }
-define vert_lat(a, lat) {
+define rot_lat(a, w, lat) {
   auto z, t
   t = 90 - lat
-  z = -sin(t)*cos(a)
+  z = cos(t+w)*cos(a) + cos(t)*cos(w)*(1-cos(a))
   return (90 - acos(z))
 }
-define vert_lon(a, lon, lat) {
+define rot_lon(a, w, lon, lat) {
   auto x, y, t
   t = 90 - lat
-  x = cos(t)*cos(lon)*cos(a) - sin(lon)*sin(a)
-  y = cos(t)*sin(lon)*cos(a) + cos(lon)*sin(a)
+  x = sin(t+w)*cos(lon)*cos(a) - sin(lon)*sin(w)*sin(a) + sin(t)*cos(lon)*cos(w)*(1-cos(a))
+  y = sin(t+w)*sin(lon)*cos(a) + cos(lon)*sin(w)*sin(a) + sin(t)*sin(lon)*cos(w)*(1-cos(a))
   return atan2(y,x)
 }
-define pol_ang(wall, lat) {
-  if (lat==0) return 0
-  return atan(-sin(wall)/tan(lat))
+define pol_ang(a, w, lat) {
+  auto g, s, t
+  if (a==0) return 0
+  g = atan(tan(lat)/cos(a))
+  t = cos(lat)*sin(-a)
+  s = sqrt(1-t^2)*cos(g-w)
+  return atan(t/s)
 }
-define pole(lat) {
-  if (lat>0) return 90
-  return -90
+define radius_lat(lat) {
+  if (lat>0) return lat - 45
+  return lat + 45
 }
