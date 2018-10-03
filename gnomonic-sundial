@@ -13,20 +13,19 @@ LAT=39.248 # latitude of the observer
 RANGE=70
 LEMN_MERID=15 # meridian with analemma
 FILE=/tmp/gnomonic-sundial.ps # name of the output file
-
-TILT=23.437 # earth's tilt angle, constant
 WALL_INCL=60 # wall inclination: e.g., 0=horizontal, 45=oblique facing up, 90=vertical
 WALL_DECL=-30 # wall declination: e.g., 0=south, 90=east, -90=west, -45=south-west, etc.
+
+TILT=23.437 # earth's tilt angle, constant
 CLON=`echo "rot_lon($WALL_DECL, $WALL_INCL, $LON, $LAT)" | bc -l data/functions.bc`
 CLAT=`echo "rot_lat($WALL_DECL, $WALL_INCL, $LAT)" | bc -l data/functions.bc`
 POL_ANG=`echo "pol_ang($WALL_DECL, $WALL_INCL, $LAT)" | bc -l data/functions.bc`
-echo "pol_ang($WALL_DECL, $WALL_INCL, $LAT) = $POL_ANG"
-
 ANALEMMA=`mktemp` || exit 1 # tmp file with analemma coordinates
 ITALIC=`mktemp` || exit 1 # tmp file with italic and babylonian lines
 
 # clear variables
-gmt clear conf; gmt clear history
+gmt clear conf &> /dev/null
+gmt clear history &> /dev/null
 
 # set media size
 gmt set PS_MEDIA A3
@@ -78,3 +77,4 @@ echo -e "$CLON $CLAT\n$CLON $RADIUS" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
 gmt clear conf; gmt clear history
 rm $ANALEMMA
 rm $ITALIC
+ls -l $FILE

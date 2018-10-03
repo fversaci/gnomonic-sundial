@@ -1,5 +1,9 @@
 /* some more trigonometric functions for bc -l */
 pi = 4 * a(1)
+eps = 10^-10
+define abs(x) {
+  if (x>0) return x else return -x
+}
 define torad(x) {
   return x * pi / 180
 }
@@ -31,7 +35,11 @@ define atan(x) {
 }
 define atan2(y, x) {
   auto r
-  if (x!=0) r = atan(y/x) else r = 90
+  if (abs(x)<eps) {
+    if ((x>0 && y>0) || (x<0 && y<0)) return 90
+    return -90
+  }
+  r = atan(y/x)
   if (x>0) return r
   if (r>0) return r - 180
   return r + 180
@@ -68,18 +76,19 @@ define rot_lat(a, w, lat) {
 }
 define rot_lon(a, w, lon, lat) {
   auto x, y, t
+  scale = 30
   t = 90 - lat
   x = sin(t+w)*cos(lon)*cos(a) - sin(lon)*sin(w)*sin(a) + sin(t)*cos(lon)*cos(w)*(1-cos(a))
   y = sin(t+w)*sin(lon)*cos(a) + cos(lon)*sin(w)*sin(a) + sin(t)*sin(lon)*cos(w)*(1-cos(a))
+  if (abs(x*y)<eps) return lon - 90
   return atan2(y,x)
 }
 define pol_ang(a, w, lat) {
   auto g, s, t
-  if (a==0) return 0
-  g = atan(tan(lat)/cos(a))
+  g = atan2(tan(lat), cos(a))
   t = cos(lat)*sin(-a)
   s = sqrt(1-t^2)*cos(g-w)
-  return atan(t/s)
+  return atan2(t, s)
 }
 define radius_lat(lat) {
   if (lat>0) return lat - 45
