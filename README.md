@@ -192,6 +192,11 @@ TBD
 
 TBD
 
+## Examples
+
+See the [list of examples](examples/README.md), with descriptions and
+pictures.
+
 ## Author
 
 `gnomonic-sundial` is developed by
