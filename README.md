@@ -194,7 +194,7 @@ TBD
 
 ## Examples
 
-See the [list of examples](examples/README.md), with descriptions and
+See the [directory of examples](examples/), with descriptions and
 pictures.
 
 ## Author
