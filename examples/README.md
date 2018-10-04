@@ -44,3 +44,21 @@ Polar sundial for Cagliari, Italy, facing south. Obtained with
 WALL_INCL=$LAT
 WALL_DECL=0
 ```
+
+## perth.horizontal
+
+Horizontal sundial for Perth, Australia. Obtained with
+
+```
+WALL_INCL=0
+WALL_DECL=180
+```
+
+## perth.vertical
+
+Vertical sundial for Perth, Australia. Wall facing north. Obtained with
+
+```
+WALL_INCL=90
+WALL_DECL=180
+```
