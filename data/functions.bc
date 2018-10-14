@@ -88,7 +88,8 @@ define pol_ang(a, w, lat) {
   g = atan2(tan(lat), cos(a))
   t = cos(lat)*sin(-a)
   s = sqrt(1-t^2)*cos(g-w)
-  return atan2(t, s)
+  r = atan2(t, s)
+  return r - 180
 }
 define radius_lat(lat) {
   if (lat>0) return lat - 45

@@ -73,6 +73,9 @@ echo -e "$LON $LAT" | gmt psxy -R -J -Sx.2 -Wred -O -K >> $FILE
 echo -e "$CLON $RADIUS" | gmt psxy -R -J -S+.2 -Wred  -O -K >> $FILE
 echo -e "$CLON $CLAT\n$CLON $RADIUS" | gmt psxy -R -J -W0.5,red,- -O -K >> $FILE
 
+# print coordinates of center of the map
+echo -e "Center of the map: LON:$CLON LAT:$CLAT"
+
 # clean conf and tmp
 gmt clear conf; gmt clear history
 rm $ANALEMMA
