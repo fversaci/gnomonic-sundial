@@ -80,9 +80,9 @@ globe, leaving only its center or its axis (which will be the gnomon
 of our sundial) and read the zenith location directly on the flat
 surface.
 
-Our program assumes the surface to be horizontal, but if you want to
-build a vertical or an inclining sundial, you just need to change the point
-of the globe projection accordingly. Let's take as an example Cagliari,
+We'll now focus on horizontal surfaces, but if you want to build a
+vertical or an inclining sundial, we can simply change the point of
+the globe projection accordingly. Let's take as an example Cagliari,
 in Italy, which has coordinates LON = 9.133 and LAT = 39.248. In our
 hypothetical, semi-transparent sphere our location will be facing
 down, thus being the intersection point of a horizontal plane tangent
@@ -91,7 +91,8 @@ plane facing south, the tangent point on the globe will have
 coordinates LON = 9.133 and LAT = 39.248 - 90 = -50.752. If your wall
 is not vertical and/or not facing south, you just need to compute the
 tangent point of wall plane with the semi-transparent globe to
-generate the correct sundial map.
+generate the correct sundial map. Our program can take care of these
+computations.
 
 ## How to use the sundial
 
@@ -112,8 +113,8 @@ some point which is 45 degree from it (e.g., from (LON, LAT) and (LON,
 LAT±45), as it's drawn by default by our program).
 
 By using a vertical gnomon pointed on our location we must read the
-time using only the tip of the shadow.  We can the whole shadow more
-informative, by making the gnomon polar, i.e., parallel to the globe's
+time using only the tip of the shadow.  We can have the whole shadow being more
+informative by making the gnomon polar, i.e., parallel to the globe's
 axis (i.e., starting at the north pole and pointing to Polaris, i.e.,
 north, and up of an angle equal to LAT). Some simple computations show
 that the length g of the polar gnomon, reaching the center of the
@@ -134,7 +135,7 @@ clocks by 18 minutes.
 At the end of 19th century the world was divided in 24 time zones,
 each large 15 degrees, to mitigate the effects of the different local
 times and accumulate the differences in multiple of one hour.  E.g.,
-Italy has adopted the time of the 15⁰ meridian, which goes roughly
+Italy has adopted the time of the 15 degrees meridian, which goes roughly
 through the mount Etna, so that there are no time differences when
 using national trains.
 
@@ -169,7 +170,7 @@ that when the official time is noon, our real, local time is actually
 meridian + 16.5 minutes from the equation of time).
 
 To incorporate also this correction to the local time in our sundial,
-we draw the analemma corresponding to the midday meridian (and we
+we draw the analemma corresponding to the midday meridian (or we
 could also draw one for each meridian) and we read the midday when the
 shadow touches the lemniscate. Since the lemniscate has two
 intersection point with almost all parallels, we need to know which
