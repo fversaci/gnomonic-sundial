@@ -3,7 +3,7 @@
 ## Prerequisites
 
 Our program is developed in two branches: one which uses only standard
-linux tools (bash, awk, etc.), and another which instead adopts
+linux tools (bash, awk, etc.), and another one which instead uses only
 Python3. Both versions will need
 [gmt](http://gmt.soest.hawaii.edu/). To be able to draw the geographic
 map within the sundial, be sure to also have the `gmt-gshhg` package
