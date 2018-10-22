@@ -2,10 +2,19 @@
 
 ## Prerequisites
 
-In order to run the script you will need a Linux system with
+Our program is developed in two branches: one which uses only standard
+linux tools (bash, awk, etc.), and another which instead adopts
+Python3. Both versions will need
 [gmt](http://gmt.soest.hawaii.edu/). To be able to draw the geographic
 map within the sundial, be sure to also have the `gmt-gshhg` package
 installed.
+
+### Python branch
+
+Apart from `gmt`, you will need Python 3 to ble able to run the
+program.
+
+### Bash branch
 
 Apart from `gmt`, you will need the following (standard) Linux tools:
 
