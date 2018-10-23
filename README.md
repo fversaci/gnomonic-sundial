@@ -11,7 +11,7 @@ installed.
 
 ### Python branch
 
-Apart from `gmt`, you will need Python 3 to ble able to run the
+Apart from `gmt`, you will need Python ≥ 3.6 to ble able to run the
 program.
 
 ### Bash branch
@@ -23,6 +23,7 @@ Apart from `gmt`, you will need the following (standard) Linux tools:
 - sed
 - awk
 - bc
+- paste
 
 ## Overview of sundials
 
