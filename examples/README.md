@@ -13,8 +13,8 @@ measure for a vertical gnomon to be placed at the center of the disk
 Obtained with
 
 ```
-WALL_INCL=60
-WALL_DECL=-30
+wall_incl = 60
+wall_decl = -30
 ```
 
 
@@ -23,8 +23,8 @@ WALL_DECL=-30
 Equatorial sundial for Cagliari, Italy. Obtained with
 
 ```
-WALL_INCL=`echo 90 - $LAT | bc -l`
-WALL_DECL=180
+wall_incl = 90 - %(lat)s
+wall_decl = 180
 ```
 
 That's the side of the disk facing up, which is illuminated in spring
@@ -32,8 +32,8 @@ and summer. To get the other side, which is illuminated in autumn and
 winter, use
 
 ```
-WALL_INCL=`echo 90 + $LAT | bc -l`
-WALL_DECL=0
+wall_incl = 90 + %(lat)s
+wall_decl = 0
 ```
 
 ## cagliari.polar
@@ -41,8 +41,8 @@ WALL_DECL=0
 Polar sundial for Cagliari, Italy, facing south. Obtained with
 
 ```
-WALL_INCL=$LAT
-WALL_DECL=0
+wall_incl = %(lat)s
+wall_decl = 0
 ```
 
 ## perth.horizontal
@@ -50,8 +50,8 @@ WALL_DECL=0
 Horizontal sundial for Perth, Australia. Obtained with
 
 ```
-WALL_INCL=0
-WALL_DECL=180
+wall_incl = 0
+wall_decl = 180
 ```
 
 ## perth.vertical
@@ -59,6 +59,6 @@ WALL_DECL=180
 Vertical sundial for Perth, Australia. Wall facing north. Obtained with
 
 ```
-WALL_INCL=90
-WALL_DECL=180
+wall_incl = 90
+wall_decl = 180
 ```

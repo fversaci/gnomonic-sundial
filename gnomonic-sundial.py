@@ -12,6 +12,7 @@ import subprocess
 from datetime import date
 from lib.functions import *
 import configparser
+import ast
 
 tilt = 23.437 # earth's tilt angle, constant
 
@@ -24,8 +25,8 @@ lat = conf.getfloat('lat')
 map_range = conf.getfloat('map_range')
 lemn_merid = conf.getfloat('lemn_merid')
 filename = "/tmp/gnomonic-sundial.ps"
-wall_incl = conf.getfloat('wall_incl')
-wall_decl = conf.getfloat('wall_decl')
+wall_incl = ast.literal_eval(conf['wall_incl'])
+wall_decl = ast.literal_eval(conf['wall_decl'])
 paper_size = conf['paper_size']
 image_size = conf.getfloat('image_size')
 dates = conf['starred_dates'].split(',')
