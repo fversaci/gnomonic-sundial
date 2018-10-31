@@ -208,11 +208,27 @@ TBD
 See the [directory of examples](examples/), with descriptions and
 pictures.
 
+## Historical notes
+
+Geographic sundials, showing on the dial the positions of several
+cities, were used throughout the 19th century. See, e.g., this
+particularly rich [one](http://sundialatlas.net/atlas.php?sun=IT2368),
+which dates back to 1851.
+
+A more modern example, built in 1997, with a complete map is shown
+[here](http://sundialatlas.net/atlas.php?sun=IT6151).
+
 ## Author
 
 `gnomonic-sundial` is developed by
   * Francesco Versaci <francesco.versaci@gmail.com>
 
+## Acknowledgement
+
+I'd like to thank Gian Casalegno for his high quality [educational
+materials](http://www.sundials.eu/indexENU.htm), which have inspired
+this work, and for tirelessly providing valueble answers to my
+questions.
 
 ## License
 
